@@ -1,4 +1,4 @@
-package kot.helena.gliphyapp;
+package kot.helena.gliphyapp.api;
 
 import org.greenrobot.eventbus.EventBus;
 

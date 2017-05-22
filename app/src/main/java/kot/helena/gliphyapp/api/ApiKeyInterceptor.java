@@ -2,7 +2,6 @@ package kot.helena.gliphyapp.api;
 
 import java.io.IOException;
 
-import kot.helena.gliphyapp.GliphyService;
 import okhttp3.HttpUrl;
 import okhttp3.Interceptor;
 import okhttp3.Request;

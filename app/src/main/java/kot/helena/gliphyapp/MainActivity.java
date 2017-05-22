@@ -10,6 +10,7 @@ import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 
+import kot.helena.gliphyapp.api.GliphyService;
 import kot.helena.gliphyapp.dashboard.ImageBoardAdapter;
 import kot.helena.gliphyapp.dashboard.ImageData;
 import kot.helena.gliphyapp.dashboard.event.LoadDataEvent;
