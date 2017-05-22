@@ -1,11 +1,10 @@
 package kot.helena.gliphyapp.api;
 
-/**
- * Created by wunderbuffer on 2017-05-22.
- */
+import com.google.gson.annotations.SerializedName;
 
 public class ImageDto {
 
-
+    @SerializedName("downsized_large")
+    public PreviewImageDto previewImage;
 
 }

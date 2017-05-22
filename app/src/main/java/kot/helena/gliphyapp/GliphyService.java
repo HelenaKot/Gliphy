@@ -1,6 +1,10 @@
 package kot.helena.gliphyapp;
 
+import android.util.Log;
+
 import kot.helena.gliphyapp.api.ApiKeyInterceptor;
+import kot.helena.gliphyapp.api.DataDto;
+import kot.helena.gliphyapp.api.ResponseDto;
 import kot.helena.gliphyapp.api.ImageDto;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -38,34 +42,38 @@ public class GliphyService {
 
     public interface GifService {
         @GET("/v1/gifs/search?")
-        Call<ImageDto> query(@Query("limit") int limit,
-                             @Query("q") String tag);
+        Call<ResponseDto> query(@Query("limit") int limit,
+                                @Query("q") String tag);
+
+        @GET("/v1/gifs/trending?")
+        Call<ResponseDto> trending(@Query("limit") int limit);
     }
 
-    public void guerryGifs(int limit) {
-        Call<ImageDto> call = myService.query(limit, "cat");
+    public void getTrending(int limit) {
+        Call<ResponseDto> call = myService.trending(limit);
 
-        call.enqueue(new Callback<ImageDto>() {
+        call.enqueue(new Callback<ResponseDto>() {
             @Override
-            public void onResponse(Call<ImageDto> call, Response<ImageDto> response) {
-                ImageDto record = response.body();
+            public void onResponse(Call<ResponseDto> call, Response<ResponseDto> response) {
+                ResponseDto record = response.body();
                 try {
-                    serialize(record);
+                    serialize(record.data);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
 
             @Override
-            public void onFailure(Call<ImageDto> call, Throwable t) {
+            public void onFailure(Call<ResponseDto> call, Throwable t) {
                 System.out.println("shame");
             }
         });
     }
 
-    ImageData serialize(ImageDto dto) throws Exception {
+    ImageData serialize(DataDto[] dto) throws Exception {
         ImageData output = new ImageData();
         //todo mapper
+        Log.e("LOG", dto.toString());
         return output;
     }
 

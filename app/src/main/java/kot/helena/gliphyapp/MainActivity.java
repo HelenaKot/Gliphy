@@ -11,7 +11,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         GliphyService service = new GliphyService();
-        service.guerryGifs(20);
+        service.getTrending(20);
 
     }
 }
