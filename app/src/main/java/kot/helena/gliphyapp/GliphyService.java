@@ -1,11 +1,12 @@
 package kot.helena.gliphyapp;
 
-import android.util.Log;
+import java.util.ArrayList;
+import java.util.List;
 
 import kot.helena.gliphyapp.api.ApiKeyInterceptor;
-import kot.helena.gliphyapp.api.DataDto;
-import kot.helena.gliphyapp.api.ResponseDto;
-import kot.helena.gliphyapp.api.ImageDto;
+import kot.helena.gliphyapp.api.dto.DataDto;
+import kot.helena.gliphyapp.api.dto.ResponseDto;
+import kot.helena.gliphyapp.dashboard.ImageData;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
@@ -70,10 +71,12 @@ public class GliphyService {
         });
     }
 
-    ImageData serialize(DataDto[] dto) throws Exception {
-        ImageData output = new ImageData();
-        //todo mapper
-        Log.e("LOG", dto.toString());
+    List<ImageData> serialize(DataDto[] dto) throws Exception {
+        List<ImageData> output = new ArrayList<ImageData>();
+        for (DataDto dataDto : dto) {
+            output.add(new ImageData(dataDto.images.previewImage.url));
+        }
+        
         return output;
     }
 

@@ -1,4 +1,4 @@
-package kot.helena.gliphyapp.api;
+package kot.helena.gliphyapp.api.dto;
 
 // "preview_gif"
 public class PreviewImageDto {
