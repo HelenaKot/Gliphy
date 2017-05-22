@@ -1,5 +1,7 @@
 package kot.helena.gliphyapp;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,6 +9,7 @@ import kot.helena.gliphyapp.api.ApiKeyInterceptor;
 import kot.helena.gliphyapp.api.dto.DataDto;
 import kot.helena.gliphyapp.api.dto.ResponseDto;
 import kot.helena.gliphyapp.dashboard.ImageData;
+import kot.helena.gliphyapp.dashboard.event.LoadDataEvent;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
@@ -58,7 +61,8 @@ public class GliphyService {
             public void onResponse(Call<ResponseDto> call, Response<ResponseDto> response) {
                 ResponseDto record = response.body();
                 try {
-                    serialize(record.data);
+                    List<ImageData> images = serialize(record.data);
+                    EventBus.getDefault().post(new LoadDataEvent(images));
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -76,7 +80,6 @@ public class GliphyService {
         for (DataDto dataDto : dto) {
             output.add(new ImageData(dataDto.images.previewImage.url));
         }
-        
         return output;
     }
 

@@ -43,6 +43,11 @@ public class ImageBoardAdapter extends RecyclerView.Adapter<ImageBoardAdapter.Vi
         return data.size();
     }
 
+    public void addAll(List<ImageData> images) {
+        data.addAll(images);
+        notifyDataSetChanged();
+    }
+
     class ViewHolder extends RecyclerView.ViewHolder {
         ImageView imageView;
 

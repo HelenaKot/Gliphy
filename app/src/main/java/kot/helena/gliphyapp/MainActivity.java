@@ -5,10 +5,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+
 import java.util.ArrayList;
 
 import kot.helena.gliphyapp.dashboard.ImageBoardAdapter;
 import kot.helena.gliphyapp.dashboard.ImageData;
+import kot.helena.gliphyapp.dashboard.event.LoadDataEvent;
 
 public class MainActivity extends AppCompatActivity {
     ImageBoardAdapter adapter;
@@ -34,6 +38,23 @@ public class MainActivity extends AppCompatActivity {
     private void initService() {
         GliphyService service = new GliphyService();
         service.getTrending(20);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    protected void onStop() {
+        EventBus.getDefault().unregister(this);
+        super.onStop();
+    }
+
+    @Subscribe
+    public void onNewData(LoadDataEvent dataEvent) {
+        adapter.addAll(dataEvent.getData());
     }
 
 }
